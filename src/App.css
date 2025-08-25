@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+.App{
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: rgb(34, 34, 34);
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+  padding-bottom: 60px;
+}
+
+.App h1{
+  color: rgb(176, 231, 56);
+}
+
+.App h3{
+  color: rgb(208, 208, 208);
+}
+
+.movieCard{
+  width: 200px;
+  height: 280px;
+  background-color: rgb(51, 51, 51);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  overflow: hidden;
+
+  /* sombra básica */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+
+  /* variável para a iluminação */
+  --light-pos: 50% 50%;
+}
+
+.movieCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--light-pos, 50% 50%), rgba(255,255,255,0.15), transparent 70%);
+  z-index: 2;
+  transition: background 0.1s ease;
+}
+
+.movieCard:hover{
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.7);
+  cursor: pointer;
+}
+
+.movieCardWrapper {
+  transition: transform 0.3s ease;
+}
+
+.movieCardWrapper:hover {
+  transform: scale(1.1);
+}
+
+
+
+.movieImg{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  background-color: rgb(73, 73, 73);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.movieImg::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 65%; 
+  background: linear-gradient(to top, black, transparent);
+  border-radius: 10px; 
+  z-index: 1;
+}
+
+.movieImg img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movieInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px;
+  color: white;
+  position: absolute;
+  z-index: 3;
+  margin-bottom: 10px;
+  bottom: 10px;
+}
+
+.movieInfo h2{
+  font-size: 1rem;
+  text-align: center;
+}
+
+.movieInfo h4{
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.movieCarousel{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.movieCarousel h3{
+  font-size: 24px;
+  color: rgb(142, 187, 44);
+}
+
+.carousel{
+  display: flex;
+  gap: 40px;
+   perspective: 1000px;
+
+}
+
+
+.carouselContainer{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+button{
+  background-color: rgb(51, 51, 51);
+  border: none;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+ button:hover{
+  background-color: rgb(76, 76, 76);
+  scale: 1.1;
+}
+
+button:disabled{
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+ button:active{
+  cursor: default;
+}
+
+.carousels{
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+
+
+.modal{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 95vh;
+  width: 95vw;
+  position: fixed;
+  z-index: 10;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centraliza */
+  color: white;
+  padding: 40px;
+  align-items: center;
+  backdrop-filter: blur(2px);
+}
+
+.modal button{
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+.modalInfo{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 80%;
+  z-index: 1;
+}
+
+.modalInfo h2{
+  font-size: 32px;
+}
+
+.modalInfo p{
+  font-size: 18px;
+  text-align: center;        /* impede quebra de linha */
+  overflow: hidden;           /* esconde o excesso */
+  text-overflow: ellipsis;    /* coloca reticências (...) */
+  max-width: 100%;
+  max-height: 90%;  
+  display: -webkit-box;
+  -webkit-line-clamp: 3;   /* número de linhas antes de cortar */
+  -webkit-box-orient: vertical;
+
+}
+
+.modalInfo h2 span{
+  color: rgb(142, 187, 44);
+}
+
+.lado1, .lado2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%;
+}
+
+.lado1 h2, .lado2 h2{
+  font-size: 32px
+}
+
+.lado1 p, .lado2 p{
+  font-size: 18px
+}
+
+.modalExtraInfos{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  align-items: center;
+  gap: 10%;
+  position: relative;
+  z-index: 1;
+}
+
+.input{
+  background-color: rgb(51, 51, 51);
+  border: none;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 45vw;
+}
