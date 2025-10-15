@@ -1,91 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-*{
+/* src/App.css (Versão Simplificada 2D) */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-body{
+body {
+    background-color: rgb(34, 34, 34);
     overflow-x: hidden;
 }
 
-.App{
+.App {
   width: 100vw;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background-color: rgb(34, 34, 34);
   flex-direction: column;
   gap: 40px;
-  padding: 20px;
+  padding: 40px;
   padding-bottom: 60px;
 }
 
-.App h1{
+.App h1 {
   color: rgb(176, 231, 56);
 }
 
-.App h3{
+.App h3 {
   color: rgb(208, 208, 208);
 }
 
-.movieCard{
+/* --- Card Simplificado --- */
+.movieCardWrapper {
+  transition: transform 0.3s ease; /* Efeito de escala no hover */
+  cursor: pointer;
+}
+
+.movieCardWrapper:hover {
+  transform: scale(1.05); /* Leve aumento ao passar o mouse */
+}
+
+.movieCard {
   width: 200px;
   height: 280px;
   background-color: rgb(51, 51, 51);
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-  overflow: hidden;
-
-  /* sombra básica */
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-
-  /* variável para a iluminação */
-  --light-pos: 50% 50%;
+  position: relative; /* Mantém a referência para os filhos absolutos */
+  overflow: hidden; /* Garante que a imagem não saia das bordas arredondadas */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  color: white;
 }
 
-.movieCard::before {
-  content: "";
+.movieImg {
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--light-pos, 50% 50%), rgba(255,255,255,0.15), transparent 70%);
-  z-index: 2;
-  transition: background 0.1s ease;
-}
-
-.movieCard:hover{
-  box-shadow: 0px 0px 20px rgba(0,0,0,0.7);
-  cursor: pointer;
-}
-
-.movieCardWrapper {
-  transition: transform 0.3s ease;
-}
-
-.movieCardWrapper:hover {
-  transform: scale(1.1);
-}
-
-
-
-.movieImg{
-  position: relative;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-  background-color: rgb(73, 73, 73);
-  overflow: hidden;
-  z-index: 1;
 }
 
 .movieImg::after {
@@ -95,104 +69,103 @@ body{
   left: 0;
   width: 100%;
   height: 65%; 
-  background: linear-gradient(to top, black, transparent);
-  border-radius: 10px; 
-  z-index: 1;
+  background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
 }
 
-.movieImg img{
+.movieImg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.movieInfo{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 5px;
-  color: white;
+.movieInfo {
   position: absolute;
-  z-index: 3;
-  margin-bottom: 10px;
-  bottom: 10px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  z-index: 2; /* Garante que o texto fique sobre a imagem e o gradiente */
 }
 
-.movieInfo h2{
+.movieInfo h2 {
   font-size: 1rem;
   text-align: center;
+  margin: 0 0 5px 0;
 }
 
-.movieInfo h4{
+.movieInfo h4 {
   font-size: 0.8rem;
   text-align: center;
-  font-weight: 500;
+  font-weight: 300;
+  color: #ccc;
+  margin: 0;
 }
 
-.movieCarousel{
+
+.movieCarousel {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.movieCarousel h3{
+.movieCarousel h3 {
   font-size: 24px;
   color: rgb(142, 187, 44);
 }
 
-.carousel{
-  display: flex;
-  gap: 40px;
-   perspective: 1000px;
 
+.swiper-button-next, .swiper-button-prev {
+  color: rgb(176, 231, 56) !important;
 }
 
+/* O resto dos seus estilos (modal, input, etc.) pode ser adicionado aqui embaixo, eles não devem interferir. */
 
-.carouselContainer{
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  justify-content: space-between;
+.titleGroup {
+  text-align: center;
+}
+
+.carousels {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* ... (seus outros estilos de input, modal, botão podem vir aqui) ... */
+.input{
+  background-color: rgb(51, 51, 51);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 45vw;
 }
 
 button{
   background-color: rgb(51, 51, 51);
   border: none;
   color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
- button:hover{
-  background-color: rgb(76, 76, 76);
-  scale: 1.1;
+
+
+.movieCardWrapper {
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
-button:disabled{
-  background-color: gray;
-  cursor: not-allowed;
+.movieCardWrapper:hover {
+  transform: scale(1.1);
+  position: relative;
+  z-index: 10;
 }
-
- button:active{
-  cursor: default;
-}
-
-.carousels{
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-}
-
-
 
 .modal{
   display: flex;
@@ -201,7 +174,7 @@ button:disabled{
   height: 95vh;
   width: 95vw;
   position: fixed;
-  z-index: 10;
+  z-index: 100; /* <-- ÚNICA ALTERAÇÃO NECESSÁRIA */
   border-radius: 10px;
   top: 50%;
   left: 50%;
@@ -241,7 +214,6 @@ button:disabled{
   display: -webkit-box;
   -webkit-line-clamp: 3;   /* número de linhas antes de cortar */
   -webkit-box-orient: vertical;
-
 }
 
 .modalInfo h2 span{
@@ -274,15 +246,65 @@ button:disabled{
   z-index: 1;
 }
 
-.input{
-  background-color: rgb(51, 51, 51);
-  border: none;
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-  width: 45vw;
+
+
+.swiper {
+  width: 1120px;
+  height: 350px;
+  
+  /* Padding unificado: 20px em cima, 0 nos lados, 50px embaixo para a paginação */
+  padding: 20px 0 50px 0;
+  
+  /* A propriedade correta para permitir o hover sem criar scroll desnecessário */
+  overflow: visible !important;
+}
+
+
+/* Efeito de hover no card */
+.movieCardWrapper:hover {
+  transform: scale(1.1);
+  position: relative;
+  z-index: 10;
+}
+
+
+
+
+/* 2. Mude o posicionamento do container das bolinhas. Esta é a regra principal. */
+.swiper-pagination {
+  position: static !important; /* Tira do modo 'flutuante' e coloca abaixo dos slides */
+  margin-top: 5px !important; /* Distância entre os slides e as bolinhas */
+}
+
+/* 3. (OPCIONAL) Estilize as bolinhas para combinar com seu site */
+.swiper-pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #fff; /* Cor da bolinha inativa */
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+/* Adicionamos a classe pai aqui também */
+.swiper-pagination .swiper-pagination-bullet-active {
+  background-color: rgb(176, 231, 56); /* Sua cor de destaque */
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+
+.carousel{
+  width: 1170px;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carouselContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

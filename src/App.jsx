@@ -1,6 +1,15 @@
 import { useState } from "react";
 import "./App.css";
 import MovieCarousel from "./components/movieCarousel";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import MovieCard from "./components/movieCard";
+import "swiper/css/navigation"; 
+import "swiper/css/pagination";
+
 
 function App() {
 

@@ -2,6 +2,8 @@ import MovieCard from "./movieCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from 'swiper/modules';
 
 function MovieCarousel({ titulo, genreId, query }) {
   const [movies, setMovies] = useState([]);
@@ -42,18 +44,6 @@ function MovieCarousel({ titulo, genreId, query }) {
   }, [genreId, query]);
 
   
-  const [startIndex, setStartIndex] = useState(0);
-
-  const visibleCount = 5;
-
-  const handleNext = () => {
-    setStartIndex((prev) => Math.min(prev + 1, movies.length - visibleCount));
-  };
-
-  const handlePrev = () => {
-    setStartIndex((prev) => Math.max(prev - 1, 0));
-  };
-  // const visibleMovies = movies.slice(startIndex, startIndex + visibleCount);
 
   const mapGenres = (genreIds) => {
     if (!allGenres.length) return ""; // ainda não carregou
@@ -65,7 +55,7 @@ function MovieCarousel({ titulo, genreId, query }) {
 
   
 
-  const visibleMovies = movies.slice(startIndex, startIndex + visibleCount);
+ 
 
   const [clickedCard, setClickedCard] = useState(null);
 
@@ -79,7 +69,7 @@ function MovieCarousel({ titulo, genreId, query }) {
           }}
         >
 
-<div style={{
+  <div style={{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${clickedCard.backdrop_path})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -131,29 +121,34 @@ function MovieCarousel({ titulo, genreId, query }) {
 
       <h3>{titulo}</h3>
       <div className="carouselContainer">
-        <button onClick={handlePrev} disabled={startIndex === 0}>
-          Anterior
-        </button>
+        
         <div className="carousel">
-          {visibleMovies.map((movie) => (
-            <MovieCard
-              title={movie.title}
-              image={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                  : "https://via.placeholder.com/300x450?text=Sem+Imagem"
-              }
-              genre={mapGenres(movie.genre_ids)}
-              onClick={() => setClickedCard(movie)}
-            />
-          ))}
+          <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={30}
+          slidesPerView={5}
+          navigation={true}
+          pagination={{ clickable: true }}
+         slidesPerGroup={5}
+         //watchSlidesProgress={true}
+          >
+            {movies.map((movie) => (
+            <SwiperSlide key={movie.id}>
+              
+                <MovieCard
+                  title={movie.title}
+                  image={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                      : "https://via.placeholder.com/300x450?text=Sem+Imagem"
+                  }
+                  genre={mapGenres(movie.genre_ids)}
+                  onClick={() => setClickedCard(movie)}
+                />
+            </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-        <button
-          onClick={handleNext}
-          disabled={startIndex + visibleCount >= movies.length}
-        >
-          Próximo
-        </button>
       </div>
     </div>
   );
